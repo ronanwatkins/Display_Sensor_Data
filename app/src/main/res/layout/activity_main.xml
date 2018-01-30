@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.g00296814.send_sensor_data.MainActivity">
+        tools:context="com.example.g00296814.send_sensor_data.com.example.g00296814.display_sensor_data.MainActivity">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

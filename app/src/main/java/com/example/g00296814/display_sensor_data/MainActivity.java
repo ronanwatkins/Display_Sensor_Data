@@ -1,4 +1,4 @@
-package com.example.g00296814.send_sensor_data;
+package com.example.g00296814.display_sensor_data;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.example.g00296814.send_sensor_data.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -116,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 sensors[6] = "Magnetic Field (uT): x=" + String.format("%.2f", event.values[0]) + ", y=" + String.format("%.2f", event.values[1]) + ", z=" + String.format("%.2f", event.values[2]);
                 break;
         }
-        
+
         sensorList.addAll(Arrays.asList(sensors));
         listAdapter.notifyDataSetChanged();
     }
