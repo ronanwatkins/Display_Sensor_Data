@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor mHumidity;
     private Sensor mPressure;
     private Sensor mMagnetometer;
+    private Sensor mOrientation;
+    private Sensor mGyroscope;
     private Sensor mProximity;
     private Sensor mTemperature;
 
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
         mPressure = mSensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        mOrientation = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+        mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         mProximity = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
 
@@ -60,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         sensors = new String[] {
                 "Light\t", "Accelerometer\t", "Pressure\t", "Temperature\t",
-                "Proximity\t", "Humidity\t", "Magnetic Field\t", "GEO Location\t"
-
+                "Proximity\t", "Humidity\t", "Magnetic Field\t", "Orientation\n",
+                "Gyroscope\t", "GEO Location\t"
         };
 
         sensorList.addAll(Arrays.asList(sensors));
@@ -80,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager.registerListener(this, mProximity, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mOrientation, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
@@ -116,6 +122,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             case Sensor.TYPE_MAGNETIC_FIELD:
                 sensors[6] = "Magnetic Field (uT): x=" + String.format("%.2f", event.values[0]) + ", y=" + String.format("%.2f", event.values[1]) + ", z=" + String.format("%.2f", event.values[2]);
                 break;
+            case Sensor.TYPE_ORIENTATION:
+                sensors[7] = "Orientation (°): x=" + String.format("%.2f", event.values[0]) + ", y=" + String.format("%.2f", event.values[1]) + ", z=" + String.format("%.2f", event.values[2]);
+                break;
+            case Sensor.TYPE_GYROSCOPE:
+                sensors[8] = "Gyroscope (°/s): x=" + String.format("%.2f", event.values[0]) + ", y=" + String.format("%.2f", event.values[1]) + ", z=" + String.format("%.2f", event.values[2]);
+                break;
         }
 
         sensorList.addAll(Arrays.asList(sensors));
@@ -124,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.i("hey", "locationChanged");
+
         sensorList.clear();
 
         sensors[7] = "GEO Location: Lat=" + location.getLatitude() + ", Long=" + location.getLongitude();
